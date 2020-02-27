@@ -34,12 +34,12 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 EOF
-   # restart daemon, enable and start service
-    echo "Reloading daemon and enabling service"
-    sudo systemctl daemon-reload 
-    sudo systemctl enable ${SERVICE_NAME//'.service'/} # remove the extension
-    sudo systemctl start ${SERVICE_NAME//'.service'/}
-    echo "Service Started"
+  # restart daemon, enable and start service
+  echo "Reloading daemon and enabling service"
+  sudo systemctl daemon-reload 
+  sudo systemctl enable ${SERVICE_NAME//'.service'/} # remove the extension
+  sudo systemctl start ${SERVICE_NAME//'.service'/}
+  echo "Service Started"
 fi
 
 exit 0
