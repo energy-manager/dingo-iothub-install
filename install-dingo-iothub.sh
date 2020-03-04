@@ -4,8 +4,6 @@ SERVICE_NAME='dingo-iothub'
 DESCRIPTION='Dingo IOT Hub for connecting and controlling Dingo remotely'
 DIR_PATH='/usr/bin'
 FILE_PATH='/usr/bin/dingo-iothub'
-APP_ID=""
-PROP_ID=""
 
 while getopts 'a:p:' option; do
   case "${option}" in
@@ -25,14 +23,14 @@ function get_connection_string() {
     APP_IDENTIFIER=$(_jq $row '.["app-identifier"]')
     STARTUP=$(_jq $row '.["start-at-startup"]')
 
-    if [ "$APP_IDENTIFIER" == "$APP_ID" ] && [ $STARTUP == 1 ]
+    if [ "$APP_IDENTIFIER" == "$APP_ID" ] && [ $STARTUP -eq 1 ]
     then
       OBJECT_ID=$(_jq $row '.["object-identifier"]')
       break
     fi
   done
 
-  PROPERTIES=$(curl -s "http://localhost/bacnetws/apps/property-instances?filter=app-identifier%20eq%20'${OBJECT_ID}'&alt=json")
+  PROPERTIES=$(curl -s "http://localhost/bacnetws/apps/property-instances?filter=app-identifier%20eq%20"${OBJECT_ID}"&alt=json")
 
   for row in $(echo "${PROPERTIES}" | jq -r '.[] | @base64'); do
     PROP_IDENTIFIER=$(_jq $row '.["property-identifier"]')
@@ -82,7 +80,7 @@ EOF
   sudo chmod 644 /etc/systemd/system/${SERVICE_NAME}.service  
   echo "Reloading daemon and enabling service"
   sudo systemctl daemon-reload 
-  sudo systemctl enable $SERVICE_NAME 
+  sudo systemctl enable $SERVICE_NAME
   sudo systemctl start $SERVICE_NAME
   echo "Service Started"
 fi
