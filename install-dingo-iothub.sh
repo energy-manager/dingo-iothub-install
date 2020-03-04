@@ -6,7 +6,7 @@ DIR_PATH='/usr/bin'
 FILE_PATH='/usr/bin/dingo-iothub'
 
 
-while getopts a:p option
+while getopts a:p: option
   do
     case "${option}"
     in
