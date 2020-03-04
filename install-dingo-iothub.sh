@@ -4,14 +4,15 @@ SERVICE_NAME='dingo-iothub'
 DESCRIPTION='Dingo IOT Hub for connecting and controlling Dingo remotely'
 DIR_PATH='/usr/bin'
 FILE_PATH='/usr/bin/dingo-iothub'
-
+APP_ID=""
+PROP_ID=""
 
 while getopts a:p: option
   do
     case "${option}"
     in
-    a) APP_ID=${OPTARG};;
-    p) PROP_ID=${OPTARG};;
+    a) APP_ID="${OPTARG}";;
+    p) PROP_ID="${OPTARG}";;
   esac
 done
 
