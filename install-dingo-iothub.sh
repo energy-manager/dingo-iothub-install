@@ -4,6 +4,8 @@ SERVICE_NAME='dingo-iothub'
 DESCRIPTION='Dingo IOT Hub for connecting and controlling Dingo remotely'
 DIR_PATH='/usr/bin'
 FILE_PATH='/usr/bin/dingo-iothub'
+APP_ID=$1
+PROP_ID=$2
 
 function _jq() {
   echo $1 | base64 --decode | jq -r $2
@@ -16,7 +18,7 @@ function get_connection_string() {
     APP_IDENTIFIER=$(_jq $row '.["app-identifier"]')
     STARTUP=$(_jq $row '.["start-at-startup"]')
 
-    if [ $APP_IDENTIFIER -eq 7 ] && [ $STARTUP -eq 1 ]
+    if [ $APP_IDENTIFIER -eq $APP_ID ] && [ $STARTUP -eq 1 ]
     then
       OBJECT_ID=$(_jq $row '.["object-identifier"]')
       break
@@ -28,7 +30,7 @@ function get_connection_string() {
   for row in $(echo "${PROPERTIES}" | jq -r '.[] | @base64'); do
     PROP_IDENTIFIER=$(_jq $row '.["property-identifier"]')
 
-    if [[ $PROP_IDENTIFIER -eq 20 ]]
+    if [[ $PROP_IDENTIFIER -eq $PROP_ID ]]
     then
       CONNECTION_STRING=$(_jq $row '.["value"]')
       break
