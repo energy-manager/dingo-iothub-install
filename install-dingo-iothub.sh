@@ -4,8 +4,16 @@ SERVICE_NAME='dingo-iothub'
 DESCRIPTION='Dingo IOT Hub for connecting and controlling Dingo remotely'
 DIR_PATH='/usr/bin'
 FILE_PATH='/usr/bin/dingo-iothub'
-APP_ID=$1
-PROP_ID=$2
+
+
+while getopts a:p option
+  do
+    case "${option}"
+    in
+    a) APP_ID=${OPTARG};;
+    p) PROP_ID=${OPTARG};;
+  esac
+done
 
 function _jq() {
   echo $1 | base64 --decode | jq -r $2
