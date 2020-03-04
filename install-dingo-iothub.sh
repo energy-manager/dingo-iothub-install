@@ -25,7 +25,7 @@ function get_connection_string() {
     APP_IDENTIFIER=$(_jq $row '.["app-identifier"]')
     STARTUP=$(_jq $row '.["start-at-startup"]')
 
-    if [ "$APP_IDENTIFIER" == "$APP_ID" ] && [ $STARTUP == "1" ]
+    if [ "$APP_IDENTIFIER" == "$APP_ID" ] && [ $STARTUP == 1 ]
     then
       OBJECT_ID=$(_jq $row '.["object-identifier"]')
       break
