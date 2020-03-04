@@ -7,7 +7,7 @@ FILE_PATH='/usr/bin/dingo-iothub'
 APP_ID=""
 PROP_ID=""
 
-while getopts a:p: option do
+while getopts 'a:p:' option; do
   case "${option}" in
     a) APP_ID="${OPTARG}";;
     p) PROP_ID="${OPTARG}";;
