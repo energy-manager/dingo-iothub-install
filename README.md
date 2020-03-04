@@ -8,7 +8,7 @@
 4. Set permissions on script `cd dingo-iothub && chmod 755 install-dingo-iothub`
 5. Run `./install-dingo-iothub.sh -a -p` with `a` being the app-identifier and `p` being the property-identifier
 6. Check that the service is running `systemctl status dingo-iothub`
-7. Delete directory `/install-dingo-iothub`
+7. Delete directory `rm -rf /install-dingo-iothub` 
 8. Stop openport from running as a daemon `sudo systemctl disable openport`
 9. Stop openport `sudo openport -K`
 
